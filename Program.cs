@@ -1,0 +1,95 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+
+class SnakeTerminalGame
+{
+  public enum State
+    {
+      norte,
+      sul,
+      leste,
+      oeste
+    }
+
+  static void Main(string[] args)
+  {
+
+    int initPosX  = Console.WindowWidth/2;
+    int initPosY = Console.WindowHeight/2; 
+    State direcaoAtual = State.leste;
+
+    Queue<(int X, int Y)> snake = new Queue<(int, int)>();
+
+    for (int i = 0; i < 3; i++)
+    {
+      snake.Enqueue((initPosX+i, initPosY+i));
+    }
+
+    Dictionary<ConsoleKey, State> bussola = new Dictionary<ConsoleKey, State>
+    {
+      {ConsoleKey.W, State.norte},
+      {ConsoleKey.S, State.sul},
+      {ConsoleKey.D, State.leste},
+      {ConsoleKey.A, State.oeste}
+    };
+
+    ConsoleKeyInfo key;
+
+    Console.Clear();
+
+    foreach (var row in snake)
+    {
+      Console.SetCursorPosition(row.X, row.Y);
+      Console.WriteLine('#');
+    }
+
+    while (true)
+    {
+ 
+      if(Console.KeyAvailable)
+      {
+        key = Console.ReadKey(true);
+        
+        if(bussola.TryGetValue(key.Key, out State direcao))
+        {
+          direcaoAtual = direcao;
+        }
+        else
+        {
+          System.Environment.Exit(1);
+        }
+      }
+      if (direcaoAtual == State.norte)
+      {
+        initPosY -= 1;
+        snake.Enqueue((initPosX, initPosY));
+      }
+      if(direcaoAtual == State.sul)
+      {
+        initPosY += 1;
+        snake.Enqueue((initPosX, initPosY));
+      }
+      if(direcaoAtual == State.oeste)
+      {
+        initPosX -= 1;
+        snake.Enqueue((initPosX, initPosY));
+      }
+      if(direcaoAtual == State.leste)
+      {
+        initPosX += 1;
+        snake.Enqueue((initPosX, initPosY));
+      }
+      Console.Clear();
+      snake.Dequeue();
+
+      foreach (var row in snake)
+      {
+          Console.SetCursorPosition(row.X, row.Y);
+          Console.WriteLine('#');
+      }
+
+      Thread.Sleep(250); 
+    }
+  }
+}
