@@ -53,7 +53,22 @@ class SnakeTerminalGame
         
         if(bussola.TryGetValue(key.Key, out State direcao))
         {
-          direcaoAtual = direcao;
+          if (direcao == State.norte && direcaoAtual != State.sul)
+          {
+            direcaoAtual = direcao;
+          }
+          if (direcao == State.sul && direcaoAtual != State.norte)
+          {
+            direcaoAtual = direcao;
+          }
+          if (direcao == State.leste && direcaoAtual != State.oeste)
+          {
+            direcaoAtual = direcao;
+          }
+          if (direcao == State.oeste && direcaoAtual != State.leste)
+          {
+            direcaoAtual = direcao;
+          }
         }
         else
         {
@@ -63,23 +78,20 @@ class SnakeTerminalGame
       if (direcaoAtual == State.norte)
       {
         initPosY -= 1;
-        snake.Enqueue((initPosX, initPosY));
       }
       if(direcaoAtual == State.sul)
       {
         initPosY += 1;
-        snake.Enqueue((initPosX, initPosY));
       }
       if(direcaoAtual == State.oeste)
       {
         initPosX -= 1;
-        snake.Enqueue((initPosX, initPosY));
       }
       if(direcaoAtual == State.leste)
       {
         initPosX += 1;
-        snake.Enqueue((initPosX, initPosY));
       }
+      snake.Enqueue((initPosX, initPosY));
       Console.Clear();
       snake.Dequeue();
 
