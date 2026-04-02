@@ -14,9 +14,11 @@ class SnakeTerminalGame
 
   static void Main(string[] args)
   {
+    int width = Console.WindowWidth;
+    int height = Console.WindowHeight;
+    int initPosX  = width/2;
+    int initPosY = height/2;
 
-    int initPosX  = Console.WindowWidth/2;
-    int initPosY = Console.WindowHeight/2; 
     State direcaoAtual = State.leste;
 
     Queue<(int X, int Y)> snake = new Queue<(int, int)>();
@@ -91,14 +93,22 @@ class SnakeTerminalGame
       {
         initPosX += 1;
       }
-      snake.Enqueue((initPosX, initPosY));
-      Console.Clear();
-      snake.Dequeue();
 
-      foreach (var row in snake)
+      if(initPosX < width && initPosX > 0 && initPosY < height && initPosY > 0)
       {
+        snake.Enqueue((initPosX, initPosY));
+        Console.Clear();
+        snake.Dequeue();
+     
+        foreach (var row in snake)
+        {
           Console.SetCursorPosition(row.X, row.Y);
           Console.WriteLine('#');
+        }
+      }
+      else
+      {
+        System.Environment.Exit(0);
       }
 
       Thread.Sleep(250); 
