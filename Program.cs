@@ -21,6 +21,14 @@ class SnakeTerminalGame
 
     State direcaoAtual = State.leste;
 
+    Random random = new Random();
+    
+    int randomX = random.Next(0, width);
+    int randomY = random.Next(0, height);
+
+    string snakePartBody = "#";
+    string rat = "*";
+
     Queue<(int X, int Y)> snake = new Queue<(int, int)>();
 
     for (int i = 0; i < 3; i++)
@@ -43,7 +51,7 @@ class SnakeTerminalGame
     foreach (var row in snake)
     {
       Console.SetCursorPosition(row.X, row.Y);
-      Console.WriteLine('#');
+      Console.WriteLine(snakePartBody);
     }
 
     while (true)
@@ -99,11 +107,13 @@ class SnakeTerminalGame
         snake.Enqueue((initPosX, initPosY));
         Console.Clear();
         snake.Dequeue();
-     
+        Console.SetCursorPosition(randomX, randomY);
+        Console.WriteLine(rat);
+
         foreach (var row in snake)
         {
           Console.SetCursorPosition(row.X, row.Y);
-          Console.WriteLine('#');
+          Console.WriteLine(snakePartBody);
         }
       }
       else
