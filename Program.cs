@@ -102,7 +102,7 @@ class SnakeTerminalGame
         initPosX += 1;
       }
 
-      if(initPosX < width && initPosX > 0 && initPosY < height && initPosY > 0)
+      if(initPosX < width && initPosX >= 0 && initPosY < height && initPosY >= 0)
       {
         snake.Enqueue((initPosX, initPosY));
         Console.Clear();
