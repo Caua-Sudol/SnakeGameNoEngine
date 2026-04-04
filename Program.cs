@@ -36,7 +36,7 @@ class SnakeTerminalGame
       snake.Enqueue((initPosX+i, initPosY+i));
     }
 
-    var headSnakePos = snake.Peek();
+    var headSnakePos = (initPosX, initPosY);
     var ratPos = (randomX, randomY);
 
     Dictionary<ConsoleKey, State> bussola = new Dictionary<ConsoleKey, State>
@@ -107,11 +107,19 @@ class SnakeTerminalGame
 
       if(initPosX < width && initPosX >= 0 && initPosY < height && initPosY >= 0)
       {
+        headSnakePos = (initPosX, initPosY);
+
+        foreach (var row in snake.SkipLast(1))
+        {
+          if(headSnakePos == (row.X, row.Y))
+          {
+            System.Environment.Exit(0);
+          }
+        }
+
         snake.Enqueue((initPosX, initPosY));
         Console.Clear();
         snake.Dequeue();
-
-        headSnakePos = snake.Peek();
 
         if(headSnakePos == ratPos)
         {
@@ -130,6 +138,7 @@ class SnakeTerminalGame
           Console.SetCursorPosition(randomX, randomY);
           Console.WriteLine(rat);
         }
+
 
         foreach (var row in snake)
         {
