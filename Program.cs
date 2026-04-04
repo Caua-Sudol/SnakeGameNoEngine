@@ -122,6 +122,8 @@ class SnakeTerminalGame
 
           Console.SetCursorPosition(randomX, randomY);
           Console.WriteLine(rat);
+
+          snake.Enqueue((initPosX, initPosY));
         }
         else
         {
@@ -131,11 +133,9 @@ class SnakeTerminalGame
 
         foreach (var row in snake)
         {
-          Console.SetCursorPosition(row.X, row.Y);
-          Console.WriteLine(snakePartBody);
+            Console.SetCursorPosition(row.X, row.Y);
+            Console.WriteLine(snakePartBody); 
         }
-
-
       }
       else
       {
