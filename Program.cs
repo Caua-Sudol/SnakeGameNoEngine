@@ -36,6 +36,9 @@ class SnakeTerminalGame
       snake.Enqueue((initPosX+i, initPosY+i));
     }
 
+    var headSnakePos = snake.Peek();
+    var ratPos = (randomX, randomY);
+
     Dictionary<ConsoleKey, State> bussola = new Dictionary<ConsoleKey, State>
     {
       {ConsoleKey.W, State.norte},
@@ -107,14 +110,32 @@ class SnakeTerminalGame
         snake.Enqueue((initPosX, initPosY));
         Console.Clear();
         snake.Dequeue();
-        Console.SetCursorPosition(randomX, randomY);
-        Console.WriteLine(rat);
+
+        headSnakePos = snake.Peek();
+
+        if(headSnakePos == ratPos)
+        {
+          randomX = random.Next(0, width);
+          randomY = random.Next(0, height);
+
+          ratPos = (randomX, randomY);
+
+          Console.SetCursorPosition(randomX, randomY);
+          Console.WriteLine(rat);
+        }
+        else
+        {
+          Console.SetCursorPosition(randomX, randomY);
+          Console.WriteLine(rat);
+        }
 
         foreach (var row in snake)
         {
           Console.SetCursorPosition(row.X, row.Y);
           Console.WriteLine(snakePartBody);
         }
+
+
       }
       else
       {
