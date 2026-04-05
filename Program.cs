@@ -18,6 +18,7 @@ class SnakeTerminalGame
     int height = Console.WindowHeight;
     int initPosX  = width/2;
     int initPosY = height/2;
+    int pointCount = 0;
 
     State direcaoAtual = State.leste;
 
@@ -59,6 +60,9 @@ class SnakeTerminalGame
 
     while (true)
     {
+      
+      Console.SetCursorPosition(width/2, 0);
+      Console.WriteLine($"Pontuação: {pointCount}");
  
       if(Console.KeyAvailable)
       {
@@ -118,11 +122,15 @@ class SnakeTerminalGame
         }
 
         snake.Enqueue((initPosX, initPosY));
-        Console.Clear();
+        Console.SetCursorPosition(snake.Peek().X, snake.Peek().Y);
+        Console.WriteLine(" ");
         snake.Dequeue();
 
         if(headSnakePos == ratPos)
         {
+          pointCount += 1;
+          Console.SetCursorPosition(randomX, randomY);
+          Console.WriteLine(" ");
           randomX = random.Next(0, width);
           randomY = random.Next(0, height);
 
@@ -135,6 +143,8 @@ class SnakeTerminalGame
         }
         else
         {
+          Console.SetCursorPosition(randomX, randomY);
+          Console.WriteLine(" ");
           Console.SetCursorPosition(randomX, randomY);
           Console.WriteLine(rat);
         }
