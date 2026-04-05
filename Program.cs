@@ -4,13 +4,6 @@ using System.Threading;
 
 class SnakeTerminalGame
 {
-  public enum State
-    {
-      norte,
-      sul,
-      leste,
-      oeste
-    }
 
   static void Main(string[] args)
   {
@@ -20,24 +13,13 @@ class SnakeTerminalGame
     int initPosY = height/2;
     int pointCount = 0;
 
-    State direcaoAtual = State.leste;
-
     Random random = new Random();
     
     int randomX = random.Next(0, width);
     int randomY = random.Next(0, height);
 
-    string snakePartBody = "#";
     string rat = "*";
 
-    Queue<(int X, int Y)> snake = new Queue<(int, int)>();
-
-    for (int i = 0; i < 3; i++)
-    {
-      snake.Enqueue((initPosX+i, initPosY+i));
-    }
-
-    var headSnakePos = (initPosX, initPosY);
     var ratPos = (randomX, randomY);
 
     Dictionary<ConsoleKey, State> bussola = new Dictionary<ConsoleKey, State>
@@ -52,11 +34,7 @@ class SnakeTerminalGame
 
     Console.Clear();
 
-    foreach (var row in snake)
-    {
-      Console.SetCursorPosition(row.X, row.Y);
-      Console.WriteLine(snakePartBody);
-    }
+    // RenderSnake
 
     while (true)
     {
@@ -92,41 +70,8 @@ class SnakeTerminalGame
           System.Environment.Exit(1);
         }
       }
-      if (direcaoAtual == State.norte)
-      {
-        initPosY -= 1;
-      }
-      if(direcaoAtual == State.sul)
-      {
-        initPosY += 1;
-      }
-      if(direcaoAtual == State.oeste)
-      {
-        initPosX -= 1;
-      }
-      if(direcaoAtual == State.leste)
-      {
-        initPosX += 1;
-      }
 
-      if(initPosX < width && initPosX >= 0 && initPosY < height && initPosY >= 0)
-      {
-        headSnakePos = (initPosX, initPosY);
-
-        foreach (var row in snake.SkipLast(1))
-        {
-          if(headSnakePos == (row.X, row.Y))
-          {
-            System.Environment.Exit(0);
-          }
-        }
-
-        snake.Enqueue((initPosX, initPosY));
-        Console.SetCursorPosition(snake.Peek().X, snake.Peek().Y);
-        Console.WriteLine(" ");
-        snake.Dequeue();
-
-        if(headSnakePos == ratPos)
+     if(headSnakePos == ratPos)
         {
           pointCount += 1;
           Console.SetCursorPosition(randomX, randomY);
@@ -149,12 +94,8 @@ class SnakeTerminalGame
           Console.WriteLine(rat);
         }
 
+        // RenderSnake
 
-        foreach (var row in snake)
-        {
-            Console.SetCursorPosition(row.X, row.Y);
-            Console.WriteLine(snakePartBody); 
-        }
       }
       else
       {
