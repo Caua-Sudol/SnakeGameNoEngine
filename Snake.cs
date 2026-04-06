@@ -14,7 +14,6 @@ namespace SnakeTerminalGame
       Direction currentDirection = Direction.Left;
       string snakePartBody = "#"; 
       Queue<(int X, int Y)> snake = new Queue<(int, int)>();
-      bool isDead = false;
       var headSnakePos;
 
      public var CreateSnake(int x, int y)

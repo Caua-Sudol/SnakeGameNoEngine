@@ -18,8 +18,6 @@ class SnakeTerminalGame
     int randomX = random.Next(0, width);
     int randomY = random.Next(0, height);
 
-    string rat = "*";
-
     var ratPos = (randomX, randomY);
 
     Dictionary<ConsoleKey, State> bussola = new Dictionary<ConsoleKey, State>
