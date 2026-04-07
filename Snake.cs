@@ -5,7 +5,7 @@ namespace SnakeTerminalGame
     private string Body { get; set; } = "#"; 
     private bool IsDead { get; set; } = false;
     private Queue<(int x, int y)> snake = new Queue<(int, int)>();
-    private int Length { get; set; } = snake.Count();
+    private int Length { get; set; } = 0;
     private (int xH, int yH) Head { get; set; } = (0, 0);
 
     public void Create(int x, int y)
@@ -15,7 +15,7 @@ namespace SnakeTerminalGame
       {
         snake.Enqueue((x+i, y+i));
       }
-
+      Length = snake.Count;
       Head = (x+2, y+2);
     }
 
@@ -27,7 +27,7 @@ namespace SnakeTerminalGame
 
         foreach (var row in snake.Skip(1))
         {
-          if(Head == (row.X, row.Y))
+          if(Head == (row.x, row.y))
           {
             IsDead = true;
           }
@@ -39,9 +39,9 @@ namespace SnakeTerminalGame
       }
     }
 
-    public void Bigger()
+    public void Bigger(int x, int y)
     {
-      snake.Enqueue(x, y);
+      snake.Enqueue((x, y));
     }
 
     public (int, int) Move(Direction currentDirection)

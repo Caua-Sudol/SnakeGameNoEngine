@@ -2,54 +2,56 @@
 using System.Collections.Generic;
 using System.Threading;
 
-class SnakeGame
+namespace SnakeTerminalGame
 {
-
-  static void Main(string[] args)
+  class SnakeGame
   {
-    int width = Console.WindowWidth;
-    int height = Console.WindowHeight;
 
-    int x = width/2;
-    int y = height/2;
-
-    var move;
-    var currentDirection;
-
-    Snake snake = new Snake();
-    Rat rat = new Rat();
-    Score score = new Score();
-
-    InputHandler inputHandler = new InputHandler();
-    Render render = new Render();
-
-    Console.Clear();
-
-    snake.Create(x, y);
-    rat.Create(width, height);
-    
-    render.Draw(x, 0, score.YourScore); 
-    render.Draw(rat.Position.x, rat.Position.y, rat.Body); 
-    for(int i = 0; i <= snake.Length; i++)
+    static void Main(string[] args)
     {
-      render.Draw(x, y, snake.Body);
-    }
+      int width = Console.WindowWidth;
+      int height = Console.WindowHeight;
 
-    while (true)
-    {
-      move = snake.Move(inputHandler.InitialDirection);
-      render.Erase(x , y);
-      render.Draw(move.x, move.y, snake.Body);
+      int x = width/2;
+      int y = height/2;
 
-      ConsoleKeyInfo inputKey = Console.ReadKey(true);
+      var move = (0, 0);
+      Direction currentDirection;
 
-      currentDirection = inputHandler.KeyDirection(inputKey);
-     
-      move = snake.Move(currentDirection);
-      render.Erase(x , y);
-      render.Draw(move.x, move.y, snake.Body);
+      Snake snake = new Snake();
+      Rat rat = new Rat();
+      Score score = new Score();
 
-      if(snake.Head == rat.Position)
+      InputHandler inputHandler = new InputHandler();
+      Render render = new Render();
+
+      Console.Clear();
+
+      snake.Create(x, y);
+      rat.Create(width, height);
+
+      render.Draw(x, 0, score.YourScore); 
+      render.Draw(rat.Position.x, rat.Position.y, rat.Body); 
+      for(int i = 0; i <= snake.Length; i++)
+      {
+        render.Draw(x, y, snake.Body);
+      }
+
+      while (true)
+      {
+        move = snake.Move(inputHandler.InitialDirection);
+        render.Erase(x , y);
+        render.Draw(move.x, move.y, snake.Body);
+
+        ConsoleKeyInfo inputKey = Console.ReadKey(true);
+
+        currentDirection = inputHandler.KeyDirection(inputKey);
+
+        move = snake.Move(currentDirection);
+        render.Erase(x , y);
+        render.Draw(move.x, move.y, snake.Body);
+
+        if(snake.Head == rat.Position)
         {
           score.UpScore();
 
@@ -60,17 +62,18 @@ class SnakeGame
           rat.Create(width, height);
           render.Draw(rat.Position.x, rat.Position.y, rat.Body);
 
-          snake.Bigger();
+          snake.Bigger(x, y);
           render.Draw(move.x, move.y, snake.Body);
         }
 
-      snake.Dead(move.x, move.y, width, height);
+        snake.Dead(move.x, move.y, width, height);
 
-      if(snake.IsDead == true)
-      {
-        System.Environment.Exit(0);
+        if(snake.IsDead == true)
+        {
+          System.Environment.Exit(0);
+        }
+        Thread.Sleep(250); 
       }
-      Thread.Sleep(250); 
     }
   }
 }

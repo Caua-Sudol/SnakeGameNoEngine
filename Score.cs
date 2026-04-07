@@ -3,11 +3,18 @@ namespace SnakeTerminalGame
     public class Score
     {
       private int Value { get;set; } = 0;
-      private string YourScore { get; set; } = $"Pontuação: {Value}";
+      private string YourScore { get; set; } = "";
 
-      public int UpScore()
+      public Score()
       {
-        Value += 1;
+        this.Value = Value;
+        this.YourScore = $"Pontuação: {Value}";
+      }
+
+      public void UpScore()
+      {
+        this.Value += 1;
+        this.YourScore = $"Pontuação: {Value}";
       }
     }
 }

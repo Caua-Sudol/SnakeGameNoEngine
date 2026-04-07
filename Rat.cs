@@ -1,4 +1,4 @@
-namespace TerminalSnakeGame
+namespace SnakeTerminalGame
 {
   public class Rat
   {
