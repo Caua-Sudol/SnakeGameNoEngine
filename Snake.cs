@@ -44,7 +44,7 @@ namespace SnakeTerminalGame
       snake.Enqueue(x, y);
     }
 
-    public (int, int) Move(enum currentDirection)
+    public (int, int) Move(Direction currentDirection)
     {
       if (currentDirection == Direction.Up)
       {
@@ -67,4 +67,5 @@ namespace SnakeTerminalGame
       snake.Dequeue();
       return (x, y);
     }
+  }
 }

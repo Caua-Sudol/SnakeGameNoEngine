@@ -20,7 +20,7 @@ namespace SnakeTerminalGame
         {ConsoleKey.A, Direction.Right}
       };
 
-      public enum KeyDirection(inputKey)
+      public Direction KeyDirection(ConsoleKeyInfo inputKey)
       {
         if(Console.KeyAvailable)
         {
@@ -47,7 +47,7 @@ namespace SnakeTerminalGame
           {
             System.Environment.Exit(1);
           }
-          return currentDirection
+          return currentDirection;
         }
       }
     }

@@ -8,7 +8,6 @@ namespace SnakeTerminalGame
       public int UpScore()
       {
         Value += 1;
-        return Value
       }
     }
 }

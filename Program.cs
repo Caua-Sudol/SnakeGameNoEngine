@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-class SnakeTerminalGame
+class SnakeGame
 {
 
   static void Main(string[] args)
