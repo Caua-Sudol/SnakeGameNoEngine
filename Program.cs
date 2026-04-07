@@ -9,53 +9,67 @@ class SnakeTerminalGame
   {
     int width = Console.WindowWidth;
     int height = Console.WindowHeight;
-    int initPosX  = width/2;
-    int initPosY = height/2;
-    int pointCount = 0;
 
+    int x = width/2;
+    int y = height/2;
+
+    var move;
+    var currentDirection;
+
+    Snake snake = new Snake();
+    Rat rat = new Rat();
+    Score score = new Score();
+
+    InputHandler inputHandler = new InputHandler();
+    Render render = new Render();
 
     Console.Clear();
 
-    // RenderSnake
+    snake.Create(x, y);
+    rat.Create(width, height);
+    
+    render.Draw(x, 0, score.YourScore); 
+    render.Draw(rat.Position.x, rat.Position.y, rat.Body); 
+    for(int i = 0; i <= snake.Length; i++)
+    {
+      render.Draw(x, y, snake.Body);
+    }
 
     while (true)
     {
-      
-      Console.SetCursorPosition(width/2, 0);
-      Console.WriteLine($"Pontuação: {pointCount}");
+      move = snake.Move(inputHandler.InitialDirection);
+      render.Erase(x , y);
+      render.Draw(move.x, move.y, snake.Body);
+
       ConsoleKeyInfo inputKey = Console.ReadKey(true);
 
-     if(headSnakePos == ratPos)
+      currentDirection = inputHandler.KeyDirection(inputKey);
+     
+      move = snake.Move(currentDirection);
+      render.Erase(x , y);
+      render.Draw(move.x, move.y, snake.Body);
+
+      if(snake.Head == rat.Position)
         {
-          pointCount += 1;
-          Console.SetCursorPosition(randomX, randomY);
-          Console.WriteLine(" ");
-          randomX = random.Next(0, width);
-          randomY = random.Next(0, height);
+          score.UpScore();
 
-          ratPos = (randomX, randomY);
+          render.Erase(width/2, 0);
+          render.Draw(width/2, 0, score.YourScore);
 
-          Console.SetCursorPosition(randomX, randomY);
-          Console.WriteLine(rat);
+          render.Erase(rat.Position.x, rat.Position.y);
+          rat.Create(width, height);
+          render.Draw(rat.Position.x, rat.Position.y, rat.Body);
 
-          snake.Enqueue((initPosX, initPosY));
-        }
-        else
-        {
-          Console.SetCursorPosition(randomX, randomY);
-          Console.WriteLine(" ");
-          Console.SetCursorPosition(randomX, randomY);
-          Console.WriteLine(rat);
+          snake.Bigger();
+          render.Draw(move.x, move.y, snake.Body);
         }
 
-        // RenderSnake
+      snake.Dead(move.x, move.y, width, height);
 
-      }
-      else
+      if(snake.IsDead == true)
       {
         System.Environment.Exit(0);
       }
-
       Thread.Sleep(250); 
     }
   }

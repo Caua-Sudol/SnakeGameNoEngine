@@ -11,7 +11,7 @@ namespace SnakeTerminalGame
 
     public class InputHandler
     {
-      private Direction currentDirection = Direction.Left;
+      private Direction InitialDirection { get; set;} = Direction.Left;
       private Dictionary<ConsoleKey, Direction> compass = new Dictionary<ConsoleKey, Direction>
       {
         {ConsoleKey.W, Direction.Up},
