@@ -1,22 +1,13 @@
 namespace SnakeTerminalGame
 {
-
-    public enum Direction
-    {
-      Up,
-      Down,
-      Left,
-      Right
-    }
-
     public class Snake
     {
-      Direction currentDirection = Direction.Left;
-      string snakePartBody = "#"; 
-      Queue<(int X, int Y)> snake = new Queue<(int, int)>();
-      var headSnakePos;
+      private string snakePartBody = "#"; 
+      private bool isDead = false;
+      private Queue<(int x, int y)> snake = new Queue<(int, int)>();
+      private (int xH, int yH) headSnakePos = (0, 0);
 
-     public var CreateSnake(int x, int y)
+     public (int, int) CreateSnake(int x, int y)
      {
        
        for (int i = 0; i < 3; i++)
@@ -29,7 +20,29 @@ namespace SnakeTerminalGame
        return headSnakePos
      }
 
-     public int updateDirectionSnake(int x, int y, currentDirection)
+     public bool IsDead(int x, int y, int width, int height)
+     {
+        if(x < width && x >= 0 && y < height && y>= 0)
+        {
+          headSnakePos = (x, y);
+
+          foreach (var row in snake.Skip(1))
+          {
+            if(headSnakePos == (row.X, row.Y))
+            {
+              isDead = true;
+              return isDead
+            }
+          }
+        }
+        else
+        {
+          isDead = true;
+          return isDead
+        }
+     }
+
+     public (int, int) Move(currentDirection)
      {
         if (currentDirection == Direction.Up)
         {
@@ -48,40 +61,8 @@ namespace SnakeTerminalGame
           x += 1;
         }
 
-        return x, y;
-     }
-
-    public var updatePositionSnake(int x, int y, int width, int height)
-    {
-            
-      if(x < width && x >= 0 && y < height && y>= 0)
-      {
-        headSnakePos = (x, y);
-
-        foreach (var row in snake.Skip(1))
-        {
-          if(headSnakePos == (row.X, row.Y))
-          {
-            System.Environment.Exit(0);
-          }
-        }
-
-        snake.Enqueue((x, y));
-        Console.SetCursorPosition(snake.Peek().X, snake.Peek().Y);
-        Console.WriteLine(" ");
+        snake.Enqueue(x, y);
         snake.Dequeue();
-      }
-      return headSnakePos;
-    }
-
-    public void RenderSnake(Queue<int, int> snake)
-    {
-          
-      foreach (var row in snake)
-      {
-        Console.SetCursorPosition(row.X, row.Y);
-        Console.WriteLine(snakePartBody);
-      }
-
-    }
-}
+        return (x, y);
+     }
+  }

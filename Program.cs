@@ -13,22 +13,6 @@ class SnakeTerminalGame
     int initPosY = height/2;
     int pointCount = 0;
 
-    Random random = new Random();
-    
-    int randomX = random.Next(0, width);
-    int randomY = random.Next(0, height);
-
-    var ratPos = (randomX, randomY);
-
-    Dictionary<ConsoleKey, State> bussola = new Dictionary<ConsoleKey, State>
-    {
-      {ConsoleKey.W, State.norte},
-      {ConsoleKey.S, State.sul},
-      {ConsoleKey.D, State.leste},
-      {ConsoleKey.A, State.oeste}
-    };
-
-    ConsoleKeyInfo key;
 
     Console.Clear();
 
@@ -39,35 +23,7 @@ class SnakeTerminalGame
       
       Console.SetCursorPosition(width/2, 0);
       Console.WriteLine($"Pontuação: {pointCount}");
- 
-      if(Console.KeyAvailable)
-      {
-        key = Console.ReadKey(true);
-        
-        if(bussola.TryGetValue(key.Key, out State direcao))
-        {
-          if (direcao == State.norte && direcaoAtual != State.sul)
-          {
-            direcaoAtual = direcao;
-          }
-          if (direcao == State.sul && direcaoAtual != State.norte)
-          {
-            direcaoAtual = direcao;
-          }
-          if (direcao == State.leste && direcaoAtual != State.oeste)
-          {
-            direcaoAtual = direcao;
-          }
-          if (direcao == State.oeste && direcaoAtual != State.leste)
-          {
-            direcaoAtual = direcao;
-          }
-        }
-        else
-        {
-          System.Environment.Exit(1);
-        }
-      }
+      ConsoleKeyInfo inputKey = Console.ReadKey(true);
 
      if(headSnakePos == ratPos)
         {
