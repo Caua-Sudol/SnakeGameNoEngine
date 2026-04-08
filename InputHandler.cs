@@ -11,8 +11,9 @@ namespace SnakeTerminalGame
 
     public class InputHandler
     {
-      public Direction InitialDirection { get; private set;} = Direction.Left;
+      public Direction InitialDirection { get; private set;} = Direction.Right;
       private Direction currentDirection;
+      private ConsoleKeyInfo inputKey;
       private Dictionary<ConsoleKey, Direction> compass = new Dictionary<ConsoleKey, Direction>
       {
         {ConsoleKey.W, Direction.Up},
@@ -21,10 +22,12 @@ namespace SnakeTerminalGame
         {ConsoleKey.A, Direction.Left}
       };
 
-      public Direction KeyDirection(ConsoleKeyInfo inputKey)
+      public Direction KeyDirection()
       {
         if(Console.KeyAvailable)
         {
+          inputKey = Console.ReadKey(true);
+
           if(compass.TryGetValue(inputKey.Key, out Direction direction))
           {
             if (direction == Direction.Up && currentDirection!= Direction.Down)

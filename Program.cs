@@ -25,6 +25,8 @@ namespace SnakeTerminalGame
       InputHandler inputHandler = new InputHandler();
       Render render = new Render();
 
+      currentDirection = inputHandler.InitialDirection;
+
       Console.Clear();
 
       snake.Create(x, y);
@@ -39,16 +41,10 @@ namespace SnakeTerminalGame
 
       while (true)
       {
-        move = snake.Move(inputHandler.InitialDirection);
-        render.Erase(x , y);
-        render.Draw(move.x, move.y, snake.Body);
-
-        ConsoleKeyInfo inputKey = Console.ReadKey(true);
-
-        currentDirection = inputHandler.KeyDirection(inputKey);
+        currentDirection = inputHandler.KeyDirection();
 
         move = snake.Move(currentDirection);
-        render.Erase(x , y);
+        render.Erase( snake.Tail.x, snake.Tail.y);
         render.Draw(move.x, move.y, snake.Body);
 
         if(snake.Head == rat.Position)
