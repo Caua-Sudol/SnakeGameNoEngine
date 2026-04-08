@@ -15,7 +15,7 @@ namespace SnakeTerminalGame
       int x = width/2;
       int y = height/2;
 
-      var move = (0, 0);
+      (int x, int y) move = (0, 0);
       Direction currentDirection;
 
       Snake snake = new Snake();

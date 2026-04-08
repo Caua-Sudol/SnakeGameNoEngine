@@ -2,8 +2,8 @@ namespace SnakeTerminalGame
 {
     public class Score
     {
-      private int Value { get;set; } = 0;
-      private string YourScore { get; set; } = "";
+      private int Value { get; set; } = 0;
+      public string YourScore { get; private set; } = "";
 
       public Score()
       {

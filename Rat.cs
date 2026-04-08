@@ -3,11 +3,11 @@ namespace SnakeTerminalGame
   public class Rat
   {
     
-    private string Body {get; set;} = "*";
+    public string Body {get; private set;} = "*";
     private Random random = new Random();
     private int randomX;
     private int randomY;
-    private (int x, int y) Position { get; set; } = (0, 0);
+    public (int x, int y) Position { get; private set; } = (0, 0);
   
     public void Create(int width, int height)
     {

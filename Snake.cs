@@ -2,11 +2,11 @@ namespace SnakeTerminalGame
 {
   public class Snake
   {
-    private string Body { get; set; } = "#"; 
-    private bool IsDead { get; set; } = false;
+    public string Body { get; private set; } = "#"; 
+    public bool IsDead { get; private set; } = false;
     private Queue<(int x, int y)> snake = new Queue<(int, int)>();
-    private int Length { get; set; } = 0;
-    private (int xH, int yH) Head { get; set; } = (0, 0);
+    public int Length { get; private set; } = 0;
+    public (int xH, int yH) Head { get; private set; } = (0, 0);
 
     public void Create(int x, int y)
     {
@@ -46,6 +46,9 @@ namespace SnakeTerminalGame
 
     public (int, int) Move(Direction currentDirection)
     {
+      int x = Head.xH;
+      int y = Head.yH;
+
       if (currentDirection == Direction.Up)
       {
         y -= 1;
@@ -63,7 +66,7 @@ namespace SnakeTerminalGame
         x += 1;
       }
 
-      snake.Enqueue(x, y);
+      snake.Enqueue((x, y));
       snake.Dequeue();
       return (x, y);
     }
