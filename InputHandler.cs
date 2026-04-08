@@ -17,8 +17,8 @@ namespace SnakeTerminalGame
       {
         {ConsoleKey.W, Direction.Up},
         {ConsoleKey.S, Direction.Down},
-        {ConsoleKey.D, Direction.Left},
-        {ConsoleKey.A, Direction.Right}
+        {ConsoleKey.D, Direction.Right},
+        {ConsoleKey.A, Direction.Left}
       };
 
       public Direction KeyDirection(ConsoleKeyInfo inputKey)

@@ -32,9 +32,9 @@ namespace SnakeTerminalGame
 
       render.Draw(x, 0, score.YourScore); 
       render.Draw(rat.Position.x, rat.Position.y, rat.Body); 
-      for(int i = 0; i <= snake.Length; i++)
+      for(int i = 0; i < snake.Length; i++)
       {
-        render.Draw(x, y, snake.Body);
+        render.Draw(x+i, y+i, snake.Body);
       }
 
       while (true)
