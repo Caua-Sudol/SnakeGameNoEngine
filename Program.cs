@@ -42,8 +42,14 @@ namespace SnakeTerminalGame
       while (true)
       {
         currentDirection = inputHandler.KeyDirection();
-
         move = snake.Move(currentDirection);
+
+        snake.Dead(move.x, move.y, width, height);
+        if(snake.IsDead == true)
+        {
+          System.Environment.Exit(0);
+        }
+
         render.Erase( snake.Tail.x, snake.Tail.y);
         render.Draw(move.x, move.y, snake.Body);
 
@@ -58,16 +64,10 @@ namespace SnakeTerminalGame
           rat.Create(width, height);
           render.Draw(rat.Position.x, rat.Position.y, rat.Body);
 
-          snake.Bigger(x, y);
+          snake.Bigger(move.x, move.y);
           render.Draw(move.x, move.y, snake.Body);
         }
 
-        snake.Dead(move.x, move.y, width, height);
-
-        if(snake.IsDead == true)
-        {
-          System.Environment.Exit(0);
-        }
         Thread.Sleep(250); 
       }
     }

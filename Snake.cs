@@ -43,7 +43,9 @@ namespace SnakeTerminalGame
 
     public void Bigger(int x, int y)
     {
-      snake.Enqueue((x, y));
+      Head = (x, y);
+      Tail = snake.Peek();
+      snake.Enqueue(Head);
     }
 
     public (int, int) Move(Direction currentDirection)
