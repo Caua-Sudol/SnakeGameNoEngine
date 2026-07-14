@@ -29,7 +29,6 @@ Obs: no estado atual, pressionar qualquer tecla fora de WASD encerra o jogo, é 
 ## Como executar
 
 ```bash
-dotnet restore
 dotnet run
 ```
 
